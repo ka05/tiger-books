@@ -29,7 +29,12 @@
       "name": "Andrew Loriot",
       "email": "apl8394@rit.edu"
     }
-
   ],
-  "homepage": "https://github.com/ka05/tiger-books"
+  "homepage": "https://github.com/ka05/tiger-books",
+  "dependencies": {
+    "express": "^4.12.4",
+    "knockout": "^3.3.0",
+    "materialize": "^1.0.0",
+    "mongoose": "^4.0.4"
+  }
 }
