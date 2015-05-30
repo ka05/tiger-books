@@ -1,0 +1,35 @@
+{
+  "name": "TigerBooks",
+  "version": "1.0.0",
+  "description": "An exchange platform for RIT textbooks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ka05/tiger-books.git"
+  },
+  "keywords": [
+    "RIT",
+    "Textbook",
+    "Exchange"
+  ],
+  "author": "Noah Peterham",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/ka05/tiger-books/issues"
+  },
+  "contributor": [
+    {
+      "name": "Clayton Herendeen",
+      "email": "cjh3387@rit.edu"
+    },
+    {
+      "name": "Andrew Loriot",
+      "email": "apl8394@rit.edu"
+    }
+
+  ],
+  "homepage": "https://github.com/ka05/tiger-books"
+}
