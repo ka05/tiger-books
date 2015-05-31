@@ -1,4 +1,5 @@
 {
+
   "name": "nodetest",
   "version": "0.0.0",
   "private": true,
@@ -14,5 +15,31 @@
     "knockout": "^3.3.0",
     "morgan": "~1.5.3",
     "serve-favicon": "~2.2.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ka05/tiger-books.git"
+  },
+  "keywords": [
+    "RIT",
+    "Textbook",
+    "Exchange"
+  ],
+  "author": "Noah Peterham",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/ka05/tiger-books/issues"
+  },
+  "contributor": [
+    {
+      "name": "Clayton Herendeen",
+      "email": "cjh3387@rit.edu"
+    },
+    {
+      "name": "Andrew Loriot",
+      "email": "apl8394@rit.edu"
+    }
+  ],
+  "homepage": "https://github.com/ka05/tiger-books"
+  
 }
