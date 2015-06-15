@@ -36,6 +36,8 @@ app.use(function(req,res,next){
 
 app.use('/', routes);
 app.use('/users', users);
+// add one for books later
+//app.use('/books', books);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
