@@ -1,1 +1,1 @@
-mongod --dbpath e:/SHARE/TigerBooksExpress/Data
+mongod --dbpath e:/SHARE/TigerBooks/Data

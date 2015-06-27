@@ -162,7 +162,7 @@ var userInfo = {
           'title': $('#addBook fieldset input#inputBookTitle').val(),
           'edition': $('#addBook fieldset input#inputBookEdition').val(),
           'description': $('#addBook fieldset input#inputBookDesc').val(),
-          'quality': $('#addBook fieldset input#inputBookQual').val(),
+          'quality': $('#addBook fieldset select#inputBookQual').val(),
           'isharcover': $('#addBook fieldset input#inputBookHardcover').is(':checked')
         };
 
