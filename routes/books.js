@@ -4,7 +4,7 @@ var router = express.Router();
 /*
  * GET booklist.
  */
-router.get('/userlist', function(req, res) {
+router.get('/booklist', function(req, res) {
   var db = req.db;
   db.collection('books').find().toArray(function (err, items) {
     res.json(items);
@@ -34,13 +34,13 @@ router.delete('/deletebook/:isbn', function(req, res) {
    * Then call the methods to perform desired action here
    */
   var db = req.db;
-  db.collection('books').remove({ 'isbn' : req.params.isbn }, function(err) {//check
+  db.collection('books').remove({ 'isbn' : req.params.isbn }, function(err) {
     res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
   });
 });
 
 /*
- * POST to addbook.
+ * POST to addbook. HANDLING
  */
 router.post('/addbook', function(req, res) {
   var db = req.db;
@@ -49,6 +49,18 @@ router.post('/addbook', function(req, res) {
       (err === null) ? { msg: '' } : { msg: err }
     );
   });
+});
+/*
+ * POST to updatebook. 
+ */
+router.post('/updatebook/:isbn', function(req, res){
+  var db = req.db;
+  db.collection('books').update(
+    {isbn: req.params.isbn}, // query 
+    {
+      
+    }
+    )
 });
 
 module.exports = router;
