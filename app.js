@@ -72,3 +72,14 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+
+
+/**
+ * GIT COMMNANDS TO RUN WHEN COMMITING
+ *
+ * git st
+ * git add *
+ * git ci -m "commit msg"
+ * git push origin HEAD:express-new
+ *
+  */
