@@ -5,6 +5,7 @@ block content
         h1= title
         p Welcome to our test
         input(data-bind='click:getUsers' type='button' value='Get Users')
+        input(data-bind='click:getBooks' type='button' value='Get Books')
         // Wrapper
         #wrapper
 
@@ -13,12 +14,12 @@ block content
             #userList(style="margin-bottom:20px")
                 table
                     thead
-                        th UserName
+                        th Full Name
                         th Email
                         th Delete?
                     tbody(data-bind='foreach:userList')
                         tr(data-bind='attr:{ \'data-id\':uid }')
-                            td(data-bind='text:username, click:$parent.getUser')
+                            td(data-bind='text:fullname, click:$parent.getUser')
                             td(data-bind='text:email')
                             td(data-bind='click:$parent.removeUser') Delete
             // SHOW USER INFO
@@ -26,38 +27,44 @@ block content
                 span Full Name:
                 span(data-bind="text:currUser().fullname")
                 br
-                span Username:
-                span(data-bind="text:currUser().username")
+                span UID:
+                span(data-bind="text:currUser().uid")
                 br
                 span Email:
                 span(data-bind="text:currUser().email")
                 br
-                span Gender:
-                span(data-bind="text:currUser().gender")
-                br
-                span Location:
-                span(data-bind="text:currUser().location")
-                br
-                span Age:
-                span(data-bind="text:currUser().age")
+                span Rating:
+                span(data-bind="text:currUser().rating")
             // /SHOW USER INFO
 
             // ADD USER
             h2 Add User
             #addUser
                 fieldset
-                    input#inputUserName(type='text', placeholder='Username')
+                    input#inputUserFullname(type='text', placeholder='Full Name')
                     input#inputUID(type='text', placeholder='uid')
                     input#inputUserEmail(type='text', placeholder='Email')
-                    br
-                    input#inputUserFullname(type='text', placeholder='Full Name')
-                    input#inputUserAge(type='text', placeholder='Age')
-                    br
-                    input#inputUserLocation(type='text', placeholder='Location')
-                    input#inputUserGender(type='text', placeholder='gender')
+                    input#inputUserRating(type='text', placeholder='Rating')
                     br
                     button(data-bind="click:addUser")#btnAddUser Add User
             // /ADD USER
 
+            h2 Add Book
+            #addBook
+                fieldset
+                    input#inputBookISBN(type='text', placeholder='ISBN')
+                    input#inputBookTitle(type='text', placeholder='Title')
+                    br
+                    input#inputBookEdition(type='text', placeholder='Edition')
+                    input#inputBookDesc(type='text', placeholder='Description')
+                    br
+                    label(for='inputBookHardcover') Is Harcover
+                    input#inputBookHardcover(type='checkbox' name='inputBookHardcover')
+                    select#inputBookQual
+                        option(value='good') Good
+                        option(value='bad') Bad
+                        option(value='ugly') Ugly
+                    br
+                    button(data-bind="click:addBook")#btnAddUser Add Book
         // /WRAPPER
 

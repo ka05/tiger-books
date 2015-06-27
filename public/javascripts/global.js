@@ -12,32 +12,56 @@ $(document).ready(function() {
 function User(_data){
   this.id = _data._id;
   this.uid = _data.uid;
-  this.username = _data.username;
+  this.fullname = _data.fullname;
   this.email = _data.email;
-}   
+  this.rating = _data.rating;
+}
 
 function UserData(_data){
   this.uid = _data.uid;
-  this.username = _data.username;
-  this.email = _data.email;
   this.fullname = _data.fullname;
-  this.age = _data.email;
-  this.location = _data.location;
-  this.gender = _data.gender;
+  this.email = _data.email;
+  this.rating = _data.rating;
+}
 
+function Book(_data){
+  this.id = _data._id;
+  this.uid = _data.uid;
+  this.isbn = _data.isbn;
+  this.title = _data.title;
+  this.edition = _data.edition;
+  this.description = _data.description;
+  this.isharcover = _data.isharcover;
+  this.quality = _data.quality;
+}
+
+function BookData(_data){
+  this.uid = _data.uid;
+  this.isbn = _data.isbn;
+  this.title = _data.title;
+  this.edition = _data.edition;
+  this.description = _data.description;
+  this.isharcover = _data.isharcover;
+  this.quality = _data.quality;
 }
 
 var userInfo = {
     userList : ko.observableArray(),
+    bookList : ko.observableArray(),
     currUser : ko.observable(
       new UserData({
-          "uid":"",
-          "username":"",
-          "email":"",
-          "fullname":"",
-          "age":"",
-          "location":"",
-          "gender":""
+        "uid":"",
+        "fullname":"",
+        "email":"",
+        "rating":""
+      })
+    ),
+    currBoook : ko.observable(
+      new BookData({
+        "uid":"",
+        "fullname":"",
+        "email":"",
+        "rating":""
       })
     ),
     getUsers  : function(){
@@ -47,6 +71,17 @@ var userInfo = {
         $.each(data, function(){
           userInfo.userList.push(new User(this));
         });
+      });
+    },
+    getBooks  : function(){
+
+      $.getJSON( '/books/booklist', function( data ) {
+        userInfo.bookList.removeAll();
+        $.each(data, function(){
+          userInfo.bookList.push(new Book(this));
+
+        });
+        console.log(userInfo.bookList());
       });
     },
     getUser : function(item, e){
@@ -68,14 +103,13 @@ var userInfo = {
 
         // If it is, compile all user info into one object
         var newUser = {
-          'username': $('#addUser fieldset input#inputUserName').val(),
           'uid': $('#addUser fieldset input#inputUID').val(),
-          'email': $('#addUser fieldset input#inputUserEmail').val(),
           'fullname': $('#addUser fieldset input#inputUserFullname').val(),
-          'age': $('#addUser fieldset input#inputUserAge').val(),
-          'location': $('#addUser fieldset input#inputUserLocation').val(),
-          'gender': $('#addUser fieldset input#inputUserGender').val()
+          'email': $('#addUser fieldset input#inputUserEmail').val(),
+          'rating': $('#addUser fieldset input#inputUserRating').val()
         };
+
+
 
         // Use AJAX to post the object to our adduser service
         $.ajax({
@@ -109,6 +143,75 @@ var userInfo = {
         return false;
       }
     },
+    addBook: function(item, e){
+      // Super basic validation - increase errorCount variable if any fields are blank
+      var errorCount = 0;
+      $('#addBook input').each(function(index, val) {
+        if($(this).attr('id') != "inputBookHardcover"){
+          if($(this).val() === '') { errorCount++; }
+        }
+      });
+
+      // Check and make sure errorCount's still at zero
+      if(errorCount === 0) {
+
+        // If it is, compile all user info into one object
+        var newBook = {
+          'uid': userInfo.currUser().uid,
+          'isbn': $('#addBook fieldset input#inputBookISBN').val(),
+          'title': $('#addBook fieldset input#inputBookTitle').val(),
+          'edition': $('#addBook fieldset input#inputBookEdition').val(),
+          'description': $('#addBook fieldset input#inputBookDesc').val(),
+          'quality': $('#addBook fieldset input#inputBookQual').val(),
+          'isharcover': $('#addBook fieldset input#inputBookHardcover').is(':checked')
+        };
+
+
+
+        // Use AJAX to post the object to our adduser service
+        $.ajax({
+          type: 'POST',
+          data: newBook,
+          url: '/books/addbook',
+          dataType: 'JSON'
+        }).done(function( response ) {
+
+          // Check for successful (blank) response
+          if (response.msg === '') {
+
+            // Clear the form inputs
+            $('#addBook fieldset input').val('');
+
+            // Update the table
+            userInfo.getBooks();
+
+          }
+          else {
+
+            // If something goes wrong, alert the error message that our service returned
+            alert('Error: ' + response.msg);
+
+          }
+        });
+      }
+      else {
+        // If errorCount is more than 0, error out
+        alert('Please fill in all fields');
+        return false;
+      }
+    },
+  /**
+   * Store these for books
+   *
+   * ISBN
+   * title
+   * edition
+   * isHardcover
+   * description
+   * qualityID
+   * ownerID
+   */
+
     removeUser : function(item, e){
       $.ajax({
         type: 'DELETE',
