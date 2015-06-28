@@ -10,10 +10,10 @@ git config --global alias.ci commit
 git config --global alias.st status
 git config --global alias.br branch
 
-make changes then commit, pull, push
+## Make changes then commit, pull, push
 
 git ci -m "commit msg"
 
-git pull
+git pull origin HEAD:master
 
 git push origin HEAD:master
