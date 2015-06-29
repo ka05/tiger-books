@@ -7,6 +7,8 @@ $(document).ready(function() {
     // Populate the user table on initial page load
     // populateTable();
     ko.applyBindings(userInfo, document.getElementById('userInfoCont'));
+    // hack to get selects working - stupid materialize
+    $('select').material_select();
 });
 
 function User(_data){
@@ -48,6 +50,7 @@ function BookData(_data){
 var userInfo = {
     userList : ko.observableArray(),
     bookList : ko.observableArray(),
+    bodyTmpl : ko.observable("blank-tmpl"),
     currUser : ko.observable(
       new UserData({
         "uid":"",
@@ -228,6 +231,16 @@ var userInfo = {
         }
 
       });
+    },
+    viewProfile : function(){
+      // switch template
+      userInfo.bodyTmpl("profile");
+    },
+    showLogin : function(){
+      // show modal for login
+    },
+    showDevView : function(){
+      userInfo.bodyTmpl("testing");
     }
 };
 

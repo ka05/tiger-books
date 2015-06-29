@@ -1,28 +1,15 @@
 extends layout
 
 block content
-    div#userInfoCont
-        h1= title
-        p Welcome to our test
-        input(data-bind='click:getUsers' type='button' value='Get Users')
-        input(data-bind='click:getBooks' type='button' value='Get Books')
-        // Wrapper
-        #wrapper
+    div#mainContent(data-bind="template: { name:bodyTmpl }")
 
-            // USER LIST
-            h2 User List
-            #userList(style="margin-bottom:20px")
-                table
-                    thead
-                        th Full Name
-                        th Email
-                        th Delete?
-                    tbody(data-bind='foreach:userList')
-                        tr(data-bind='attr:{ \'data-id\':uid }')
-                            td(data-bind='text:fullname, click:$parent.getUser')
-                            td(data-bind='text:email')
-                            td(data-bind='click:$parent.removeUser') Delete
-            // SHOW USER INFO
+
+    script(type="text/html", id="blank-tmpl")
+
+    script(type="text/html", id="profile")
+        // SHOW USER INFO
+        div(class="col s6")
+            h3 User Info
             div#user-info
                 span Full Name:
                 span(data-bind="text:currUser().fullname")
@@ -35,40 +22,110 @@ block content
                 br
                 span Rating:
                 span(data-bind="text:currUser().rating")
-            // /SHOW USER INFO
+        // /SHOW USER INFO
 
-            // ADD USER
-            h2 Add User
-            #addUser
-                fieldset
-                    input#inputUserFullname(type='text', placeholder='Full Name')
-                    input#inputUID(type='text', placeholder='uid')
-                    input#inputUserEmail(type='text', placeholder='Email')
-                    input#inputUserRating(type='text', placeholder='Rating')
-                    br
-                    button(data-bind="click:addUser")#btnAddUser Add User
-            // /ADD USER
+    script(type="text/html", id="testing")
+        div(class="row")
+            h4 Functions
+            br
+            button(class="btn waves-effect waves-light", data-bind='click:getUsers', style="margin-left:20px") Get Users
+            button(class="btn waves-effect waves-light", data-bind='click:getBooks', style="margin-left:20px") Get Books
+            // Wrapper
+            #wrapper
+                div(class="row")
+                    // USER LIST
+                    div(class="col s6")
+                        h3 User List
+                        #userList(style="margin-bottom:20px")
+                            table
+                                thead
+                                    th Full Name
+                                    th Email
+                                    th Delete?
+                                tbody(data-bind='foreach:userList')
+                                    tr(data-bind='attr:{ \'data-id\':uid }')
+                                        td(data-bind='text:fullname, click:$parent.getUser')
+                                        td(data-bind='text:email')
+                                        td(data-bind='click:$parent.removeUser') Delete
 
-            h2 Add Book
-            #addBook
-                fieldset
-                    input#inputBookISBN(type='text', placeholder='ISBN')
-                    input#inputBookTitle(type='text', placeholder='Title')
-                    br
-                    input#inputBookEdition(type='text', placeholder='Edition')
-                    input#inputBookDesc(type='text', placeholder='Description')
-                    br
-                    label(for='inputBookHardcover') Is Harcover
-                    input#inputBookHardcover(type='checkbox' name='inputBookHardcover')
-                    br
-                    label Condition
-                    select#inputBookQual
-                        option(value='good') Good
-                        option(value='bad') Bad
-                        option(value='ugly') Ugly
-                    br
-                    button(data-bind="click:addBook")#btnAddUser Add Book
-            div(class="card-panel teal lighten-2")
-                p test
-        // /WRAPPER
+                    // SHOW USER INFO
+                    div(class="col s6")
+                        h3 User Info
+                        div#user-info
+                            span Full Name:
+                            span(data-bind="text:currUser().fullname")
+                            br
+                            span UID:
+                            span(data-bind="text:currUser().uid")
+                            br
+                            span Email:
+                            span(data-bind="text:currUser().email")
+                            br
+                            span Rating:
+                            span(data-bind="text:currUser().rating")
+                    // /SHOW USER INFO
+
+
+                div(class="row")
+                    // ADD USER
+                    div(class="col m6")
+                        h3 Add User
+                        #addUser
+                            fieldset
+                                div(class="row")
+                                    div(class="input-field col s12")
+                                        input#inputUserFullname(type='text', name='name', class="validate")
+                                        label(for="name") Full Name
+                                div(class="row")
+                                    div(class="input-field col s12")
+                                        input#inputUID(type='text', name='uid', class="validate")
+                                        label(for="uid") UID
+                                div(class="row")
+                                    div(class="input-field col s12")
+                                        input#inputUserEmail(type='text', name='email', class="validate")
+                                        label(for="email") Email
+                                div(class="row")
+                                    div(class="input-field col s12")
+                                        input#inputUserRating(type='text', name='rating', class="validate")
+                                        label(for="rating") Rating
+                                br
+                                button(class="btn waves-effect waves-light", data-bind="click:addUser")#btnAddUser Add User
+                    // /ADD USER
+                    // ADD BOOK
+                    div(class="col s6")
+                        h3 Add Book
+                        #addBook
+                            fieldset
+                                div(class="row")
+                                    div(class="input-field col s12")
+                                        input#inputBookISBN(type='text', name='isbn', class="validate")
+                                        label(for="isbn") ISBN
+                                div(class="row")
+                                    div(class="input-field col s12")
+                                        input#inputBookTitle(type='text', name='book-title', class="validate")
+                                        label(for="book-title") Title
+                                div(class="row")
+                                    div(class="input-field col s12")
+                                        input#inputBookEdition(type='text', name='edition', class="validate")
+                                        label(for="edition") Edition
+                                div(class="row")
+                                    div(class="input-field col s12")
+                                        input#inputBookDesc(type='text', name='description', class="validate")
+                                        label(for="description") Description
+                                div(class="row")
+                                    div(class="input-field col s12")
+                                        input#inputBookHardcover(type='checkbox' name='inputBookHardcover', class="filled-in")
+                                        label(for="inputBookHardcover") Is Harcover
+                                        div(class="row")
+                                    div(class="input-field col s12")
+                                        span Condition
+                                        select#inputBookQual(name='condition')
+                                            option(value='good') Good
+                                            option(value='bad') Bad
+                                            option(value='ugly') Ugly
+                                br
+                                button(class="btn waves-effect waves-light", data-bind="click:addBook")#btnAddUser Add Book
+                    // / ADD BOOK
+            // /WRAPPER
+
 

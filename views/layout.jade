@@ -5,6 +5,17 @@ html
         link(rel='stylesheet', href='stylesheets/materialize.css', media="screen,projection")
         link(rel='stylesheet', href='/stylesheets/style.css')
     body
+        div(class="navbar-fixed")
+            nav
+                div(class="nav-wrapper")
+                    a(href="#", class="brand-logo")= title
+                    ul(id="nav-mobile", class="right hide-on-med-and-down")
+                        li
+                            a(href="#", data-bind="click:showDevView") Dev Testing
+                        li
+                            a(href="#", data-bind="click:viewProfile") Profile
+                        li
+                            a(href="#", data-bind="click:showLogin") Login
         block content
         script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
         script(type='text/javascript', src='javascripts/materialize.js')
