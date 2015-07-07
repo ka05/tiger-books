@@ -13,6 +13,28 @@ nav{
   margin-left:2em;
 }
 
-#mainContent{
-  margin-left:2em;
+#user-banner{
+  padding: 2em 0 0 2em;
+  width:100%;
+  background: #333;
+  color:#FFf;
+}
+
+#img-cont{
+  margin: 0 auto;
+  width: 200px;
+  height:200px;
+  padding-top: 75px;
+  border:2px solid #FFF;
+  border-radius: 100px;
+  background: rgba(255,255,255,.6);
+
+}
+#user-info{
+  padding-bottom:2em;
+}
+.add-photo-txt{
+  font-size: 30px;
+  text-align: center;
+  margin-top: 65px;
 }

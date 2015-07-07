@@ -8,11 +8,13 @@ block content
 
     script(type="text/html", id="profile")
         // SHOW USER INFO
-        div(class="col s6")
-            h3 User Info
+        div(class="col s6 center" id="user-banner")
+            div(id="img-cont")
+                span(class="add-photo-txt") Upload Photo
+            h3(data-bind="text:currUser().fullname")
+            hr
+            button(class="btn waves-effect waves-light", data-bind='click:editAccount') Edit
             div#user-info
-                span Full Name:
-                span(data-bind="text:currUser().fullname")
                 br
                 span UID:
                 span(data-bind="text:currUser().uid")
@@ -22,7 +24,84 @@ block content
                 br
                 span Rating:
                 span(data-bind="text:currUser().rating")
+
+        div(class="row")
+            div(class="col s12")
+                ul(class="tabs")
+                    li(class="tab col s6")
+                        a(href="#myBooks") My Books
+                    li(class="tab col s6")
+                        a(href="#wishList") Wish List
+        div(class="row" id="myBooks")
+            div(class="col s12")
+                table
+                    thead
+                        tr
+                            th(data-field="Name") book title
+                            th(data-field="Price") price
+                    tbody(data-bind="foreach:currUser().sBooks")
+                        tr
+                            td(data-bind="text:title")
+                            td(data-bind="text:price")
+        div(class="row" id="wishList")
+            div(class="col s12")
+                table
+                    thead
+                        tr
+                            th(data-field="Name") book title
+                            th(data-field="Condition") condition
+                            th(data-field="Price") price
+                    tbody(data-bind="foreach:currUser().bBooks")
+                        tr
+                            td(data-bind="text:title")
+                            td(data-bind="text:condition")
+                            td(data-bind="text:price")
         // /SHOW USER INFO
+
+    script(type="text/html", id="login")
+        div(class="row", data-bind="template: { name: loginBodyTmpl}")
+        div(class="row")
+            button(class="btn waves-effect waves-light", data-bind='click:login', style="margin-left:20px") Login
+            button(class="btn waves-effect waves-light", data-bind='click:signUp', style="margin-left:20px") Sign Up
+
+    script(type="text/html", id="login-body")
+        div(class="row")
+            h4(class="center") Login
+            br
+            div(class="col s12")
+                div(class="row")
+                    div(class="input-field col s12")
+                        input#loginUsername(type='text', name='name', class="validate")
+                        label(for="name") Username
+                div(class="row")
+                    div(class="input-field col s12")
+                        input#loginPass(type='text', name='name', class="validate")
+                        label(for="name") Password
+    script(type="text/html", id="signup-body")
+        div(class="row")
+            h4(class="center") Sign Up
+            br
+            div(class="col s12")
+                div(class="row")
+                    div(class="input-field col s12")
+                        input#inputUserFullname(type='text', name='name', class="validate")
+                        label(for="name") Full Name
+                div(class="row")
+                    div(class="input-field col s12")
+                        input#inputUID(type='text', name='uid', class="validate")
+                        label(for="uid") UID
+                div(class="row")
+                    div(class="input-field col s12")
+                        input#inputUserEmail(type='text', name='email', class="validate")
+                        label(for="email") Email
+                div(class="row")
+                    div(class="input-field col s12")
+                        input#inputUserPassword(type='text', name='password', class="validate")
+                        label(for="password") Password
+                div(class="row")
+                    div(class="input-field col s12")
+                        input#inputUserVerifyPassword(type='text', name='verify-pass', class="validate")
+                        label(for="verify-pass") Verify Password
 
     script(type="text/html", id="testing")
         div(class="row")

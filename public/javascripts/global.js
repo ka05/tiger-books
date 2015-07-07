@@ -4,11 +4,10 @@
 // DOM Ready =============================================================
 $(document).ready(function() {
 
-    // Populate the user table on initial page load
-    // populateTable();
-    ko.applyBindings(userInfo, document.getElementById('userInfoCont'));
-    // hack to get selects working - stupid materialize
-    $('select').material_select();
+  ko.applyBindings(userInfo, document.getElementById('userInfoCont'));
+  // hack to get selects working - stupid materialize
+  $('select').material_select();
+
 });
 
 function User(_data){
@@ -17,6 +16,10 @@ function User(_data){
   this.fullname = _data.fullname;
   this.email = _data.email;
   this.rating = _data.rating;
+  this.profileImg = _data.profileImg;
+  this.bannerImg = _data.bannerImg;
+  this.sBooks = _data.sBooks; // selling books
+  this.bBooks = _data.bBooks; // buying books
 }
 
 function UserData(_data){
@@ -24,6 +27,7 @@ function UserData(_data){
   this.fullname = _data.fullname;
   this.email = _data.email;
   this.rating = _data.rating;
+  this.profileImg = _data.profileImg;
 }
 
 function Book(_data){
@@ -51,6 +55,7 @@ var userInfo = {
     userList : ko.observableArray(),
     bookList : ko.observableArray(),
     bodyTmpl : ko.observable("blank-tmpl"),
+    loginBodyTmpl : ko.observable("blank-tmpl"),
     currUser : ko.observable(
       new UserData({
         "uid":"",
@@ -91,6 +96,7 @@ var userInfo = {
       $.getJSON( '/users/userlist/' + e.target.parentNode.getAttribute("data-id"),
         function (data) {
           userInfo.currUser(new UserData(data));
+
         }
       );
     },
@@ -232,15 +238,42 @@ var userInfo = {
 
       });
     },
-    viewProfile : function(){
-      // switch template
-      userInfo.bodyTmpl("profile");
+    changeMainView : function(data, event){
+      // show main view based on "data-view-name" attribute
+      var tmplName = event.target.getAttribute("data-view-name");
+      userInfo.bodyTmpl(tmplName);
+      userInfo.setActiveTab(event.target);
+
+      if(tmplName == "profile"){
+        $('ul.tabs').tabs();
+        $('#user-banner').css("background-image", "url('media/sunrise_simone.png')");
+        $('#img-cont').html("");
+        $('#img-cont').css("background-image", "url('media/profile.png')");
+      }
+      if(tmplName == "login"){
+        userInfo.loginBodyTmpl("login-body");
+      }
     },
-    showLogin : function(){
-      // show modal for login
+    editAccount : function(){
+      // show modal allowing to change
+      // UID
+      // Email
+      // Phone num
+      // Upload a photo - or use mycourses photo??
     },
-    showDevView : function(){
-      userInfo.bodyTmpl("testing");
+    setActiveTab : function(_ele){
+      $('#nav-mobile').find('li').each(function(){
+        $(this).removeClass("active");
+      });
+      _ele.parentNode.className = "active";
+    },
+    login : function () {
+      // grab some basic validation code from another project to save time
+
+    },
+    signUp : function(){
+      // show different form
+      userInfo.loginBodyTmpl("signup-body");
     }
 };
 
